@@ -84,12 +84,12 @@ void Permutation<T>::twoConstant(int size)
                         }
 
                         // TEST CODE
-                            // std::cout << m_perms << std::endl;
+                            std::cout << m_perms << std::endl;
 
-                        long long num = std::bitset<64>(m_perms).to_ullong();
+                        // long long num = std::bitset<64>(m_perms).to_ullong();
 
-                        if(!(tree.contains(num)))
-                            tree.add(num);
+                        // if(!(tree.contains(num)))
+                        //     tree.add(num);
                             
                         
                     }
@@ -98,13 +98,13 @@ void Permutation<T>::twoConstant(int size)
         }
     }
 
-    std::cout << "#Perms for Two Constant = " << tree.getNumberOfNodes() << std::endl;
+    // std::cout << "#Perms for Two Constant = " << tree.getNumberOfNodes() << std::endl;
 
     // TEST CODE
         // std::cout << "Tree Height = " << tree.getHeight() << std::endl;
         // tree.preorderTraverse(display);
 
-    tree.clear();
+    // tree.clear();
 }
 
 template<class T>
@@ -169,6 +169,115 @@ void Permutation<T>::threeConstant(int size)
         // tree.preorderTraverse(display);
 
     tree.clear();
+}
+
+template<class T>
+void Permutation<T>::permutationCreator(int size, int constants, int count)
+{
+    if(count == 0)
+    {
+        m_permutation.clear();
+
+        for(int i = 0; i < size; i++)
+            m_permutation.push_back(0);
+
+        for(int i = 0; i < size; i++)
+        {
+            m_position = m_permutation.begin();
+            for(int j = 0; j < i; j++)
+                m_position++;
+
+            count++;
+            *m_position = 1;
+            permutationCreator(size,constants,count);
+            count--;
+            
+            m_position = m_permutation.begin();
+            for(int j = 0; j < i; j++)
+                m_position++;
+
+            *m_position = 0;
+        }
+    }
+
+    else if(count != constants && count != 0)
+    {
+        for(int i = 0; i < size; i++)
+        {
+            m_position = m_permutation.begin();
+            for(int j = 0; j < i; j++)
+                m_position++;
+
+            if(*m_position == 0)
+            {
+                count++;
+                *m_position = 1;
+                permutationCreator(size,constants,count);
+                count--;
+                
+                m_position = m_permutation.begin();
+                for(int j = 0; j < i; j++)
+                    m_position++;
+
+                *m_position = 0;
+            }
+        }
+
+    }
+
+    else if(count == constants)
+    {
+        for(int i = 0; i < size; i++)
+        {
+            m_position = m_permutation.begin();
+
+            for(int j = 0; j < i; j++)
+                m_position++;
+
+            if(*m_position == 0)
+            {
+                std::string m_perms = "";
+
+                *m_position = 1;
+                m_position = m_permutation.begin();
+
+                for(int k = 0; k < size; k++)
+                {
+                    if(*m_position == 1)
+                        m_perms.push_back('1');
+
+                    else if(*m_position == 0)
+                        m_perms.push_back('0');
+
+                    m_position++;
+                }
+
+                // TEST CODE
+                    std::cout << m_perms << std::endl;
+                
+                m_position = m_permutation.begin();
+                for(int j = 0; j < i; j++)
+                    m_position++;
+
+                *m_position = 0;
+            }
+
+        }
+
+
+        // long long num = std::bitset<64>(m_perms).to_ullong();
+
+        // if(!(tree.contains(num)))
+        //     tree.add(num);
+    }
+
+    // std::cout << "#Perms for Three Constant = " << tree.getNumberOfNodes() << std::endl;
+
+    // TEST CODE
+        // std::cout << "Tree Height = " << tree.getHeight() << std::endl;
+        // tree.preorderTraverse(display);
+
+    // tree.clear();
 }
 
 template<class T>
