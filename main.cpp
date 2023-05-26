@@ -1,10 +1,12 @@
 #include <iostream>
-#include <fstream>
-#include "LinkedBTreeNode.h"
-#include "LinkedBTree.h"
-#include "LinkedBSearchTree.h"
-#include "Permutation.h"
 #include "permutation_tree.h"
+#include "permutation_activator.h"
+
+void* hello()
+{
+    std::cout << "Hello";
+    return 0;
+}
 
 int main(int argc, char* argv[])
 {
@@ -15,19 +17,21 @@ int main(int argc, char* argv[])
 
     // p.printPattern(4);
 
-    if(argc != 3)
-    {
-        std::cout << "Please provide permutation digit length and variable bit count" << std::endl;
-        return 0;
-    }
+    // if(argc != 3)
+    // {
+    //     std::cout << "Please provide permutation digit length and variable bit count" << std::endl;
+    //     return 0;
+    // }
 
-    Permutation<std::string> p;
-    PermutationTree a(std::stoi(argv[1]));
+    // PermutationTree a(std::stoi(argv[1]));
 
-    a.build_sub_data(std::stoi(argv[2]));
-    for(int i = 0; i < a.get_sub_data_length(); i++)
-    {
-        std::cout << a.get_sub_data()[i] << std::endl;
-    }
+    // a.build_sub_data(std::stoi(argv[2]));
+    // for(int i = 0; i < a.get_sub_data_length(); i++)
+    // {
+    //     std::cout << a.get_sub_data()[i] << std::endl;
+    // }
+
+    PermutationActivator a(4, 2);
+    a.activator(hello);
 
 }
